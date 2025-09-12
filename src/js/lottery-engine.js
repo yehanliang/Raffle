@@ -248,10 +248,10 @@ class LotteryEngine {
 
         // 高亮当前项
         items[path[currentIndex]].classList.add("selected");
-        
+
         // 播放激烈的旋转音效
         this.playSound("spin");
-        
+
         currentIndex++;
 
         // 逐渐加快速度，创造紧张感
@@ -298,7 +298,7 @@ class LotteryEngine {
       setTimeout(() => {
         reel.classList.remove("spinning");
         reel.scrollTop = targetItem.offsetTop;
-        
+
         // 每个转轮停止时播放音效
         this.playSound("click");
       }, this.config.slot.spinDuration + index * 500);
@@ -307,7 +307,7 @@ class LotteryEngine {
     setTimeout(() => {
       // 停止旋转音效
       clearInterval(spinInterval);
-      
+
       // 播放庆祝音效
       this.playSound("celebration");
       this.showResult(prize);
@@ -512,7 +512,6 @@ class LotteryEngine {
     document.getElementById("resultModal").classList.remove("show");
   }
 
-
   // 分享结果
   shareResult() {
     const resultPrize = document.getElementById("resultPrize").textContent;
@@ -557,13 +556,17 @@ class LotteryEngine {
   generateRulesContent() {
     const rulesModalBody = document.getElementById("rulesModalBody");
     const rules = this.config.activity.rules;
-    
-    rulesModalBody.innerHTML = rules.map(rule => `
+
+    rulesModalBody.innerHTML = rules
+      .map(
+        (rule) => `
       <div class="rule-item">
         <i class="fas fa-check-circle"></i>
         <span>${rule}</span>
       </div>
-    `).join('');
+    `
+      )
+      .join("");
   }
 
   // 检查登录状态
@@ -781,12 +784,15 @@ class LotteryEngine {
       gainNode.connect(this.audioContext.destination);
 
       // 设置滤波器为低通，创造更激烈的音效
-      filter.type = 'lowpass';
+      filter.type = "lowpass";
       filter.frequency.setValueAtTime(2000, this.audioContext.currentTime);
       filter.Q.setValueAtTime(10, this.audioContext.currentTime);
 
       // 频率快速变化，创造旋转效果
-      oscillator.frequency.setValueAtTime(baseFreq, this.audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(
+        baseFreq,
+        this.audioContext.currentTime
+      );
       oscillator.frequency.exponentialRampToValueAtTime(
         baseFreq * 3,
         this.audioContext.currentTime + duration * 0.3
@@ -796,7 +802,7 @@ class LotteryEngine {
         this.audioContext.currentTime + duration
       );
 
-      oscillator.type = 'sawtooth';
+      oscillator.type = "sawtooth";
 
       // 音量包络
       gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
@@ -820,8 +826,8 @@ class LotteryEngine {
       if (!this.audioEnabled || !this.config.animations.sound.enabled) return;
 
       const duration = 1.5;
-      const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-      
+      const frequencies = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+
       frequencies.forEach((freq, index) => {
         setTimeout(() => {
           const oscillator = this.audioContext.createOscillator();
@@ -832,11 +838,14 @@ class LotteryEngine {
           filter.connect(gainNode);
           gainNode.connect(this.audioContext.destination);
 
-          filter.type = 'lowpass';
+          filter.type = "lowpass";
           filter.frequency.setValueAtTime(3000, this.audioContext.currentTime);
 
-          oscillator.frequency.setValueAtTime(freq, this.audioContext.currentTime);
-          oscillator.type = 'triangle';
+          oscillator.frequency.setValueAtTime(
+            freq,
+            this.audioContext.currentTime
+          );
+          oscillator.type = "triangle";
 
           gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
           gainNode.gain.linearRampToValueAtTime(
@@ -869,11 +878,11 @@ class LotteryEngine {
       filter.connect(gainNode);
       gainNode.connect(this.audioContext.destination);
 
-      filter.type = 'highpass';
+      filter.type = "highpass";
       filter.frequency.setValueAtTime(1000, this.audioContext.currentTime);
 
       oscillator.frequency.setValueAtTime(1200, this.audioContext.currentTime);
-      oscillator.type = 'square';
+      oscillator.type = "square";
 
       gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
       gainNode.gain.linearRampToValueAtTime(
@@ -906,13 +915,16 @@ class LotteryEngine {
           filter.connect(gainNode);
           gainNode.connect(this.audioContext.destination);
 
-          filter.type = 'lowpass';
+          filter.type = "lowpass";
           filter.frequency.setValueAtTime(4000, this.audioContext.currentTime);
 
           // 随机频率
           const freq = 200 + Math.random() * 800;
-          oscillator.frequency.setValueAtTime(freq, this.audioContext.currentTime);
-          oscillator.type = 'sawtooth';
+          oscillator.frequency.setValueAtTime(
+            freq,
+            this.audioContext.currentTime
+          );
+          oscillator.type = "sawtooth";
 
           gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
           gainNode.gain.linearRampToValueAtTime(
