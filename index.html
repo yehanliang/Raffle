@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖系统</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 背景粒子效果 -->
+        <div class="particles" id="particles"></div>
+
+        <!-- 公司头部信息 -->
+        <div class="company-header">
+            <div class="company-logo">
+                <i class="fas fa-building"></i>
+                <span id="companyName">科技未来有限公司</span>
+            </div>
+            <div class="company-info">
+                <p id="companySlogan">创新科技 · 引领未来</p>
+                <p id="companyDesc">成立于2020年 · 专注AI与大数据解决方案</p>
+            </div>
+        </div>
+
+        <!-- 登录界面 -->
+        <div class="login-container" id="loginContainer">
+            <div class="login-card">
+                <div class="login-header">
+                    <h2><i class="fas fa-user-circle"></i> 号码登录</h2>
+                    <p>请输入您的手机号码参与抽奖</p>
+                </div>
+                <form class="login-form" id="loginForm">
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phoneInput" placeholder="请输入手机号码" maxlength="11" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="nameInput" placeholder="请输入姓名（可选）" maxlength="20">
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        登录参与抽奖
+                    </button>
+                </form>
+                <div class="login-info">
+                    <p><i class="fas fa-info-circle"></i> 每个号码仅可参与一次抽奖</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主标题 -->
+        <div class="header" id="mainHeader" style="display: none;">
+            <h1 class="title">
+                <span id="activityTitle">幸运大转盘</span>
+            </h1>
+            <p class="subtitle" id="activitySubtitle">500元现金大奖等你来拿！</p>
+            <div class="activity-info">
+                <p class="activity-title" id="activityInfoTitle">🎉 公司周年庆抽奖活动 🎉</p>
+                <p class="activity-desc" id="activityInfoDesc">庆祝公司成立4周年，感谢全体员工辛勤付出</p>
+            </div>
+        </div>
+
+        <!-- 抽奖区域 -->
+        <div class="lottery-container" id="lotteryContainer">
+            <!-- 九宫格抽奖 -->
+            <div class="grid-lottery" id="gridLottery" style="display: block;">
+                <div class="grid-container" id="gridContainer">
+                    <!-- 九宫格将由JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 老虎机抽奖 -->
+            <div class="slot-lottery" id="slotLottery" style="display: none;">
+                <div class="slot-container">
+                    <div class="slot-machine">
+                        <div class="slot-reel" id="reel1">
+                            <div class="slot-item">特等奖</div>
+                            <div class="slot-item">一等奖</div>
+                            <div class="slot-item">二等奖</div>
+                            <div class="slot-item">三等奖</div>
+                            <div class="slot-item">四等奖</div>
+                        </div>
+                        <div class="slot-reel" id="reel2">
+                            <div class="slot-item">500元</div>
+                            <div class="slot-item">100元</div>
+                            <div class="slot-item">50元</div>
+                            <div class="slot-item">20元</div>
+                            <div class="slot-item">10元</div>
+                        </div>
+                        <div class="slot-reel" id="reel3">
+                            <div class="slot-item">5%</div>
+                            <div class="slot-item">15%</div>
+                            <div class="slot-item">25%</div>
+                            <div class="slot-item">35%</div>
+                            <div class="slot-item">20%</div>
+                        </div>
+                    </div>
+                    <div class="slot-button" id="slotButton">
+                        <i class="fas fa-play"></i>
+                        <span>开始抽奖</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽奖结果弹窗 -->
+        <div class="result-modal" id="resultModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>恭喜您！</h2>
+                    <button class="close-btn" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="result-user" id="resultUser"></div>
+                    <div class="result-prize" id="resultPrize"></div>
+                    <div class="result-amount" id="resultAmount"></div>
+                    <div class="result-message">请截图保存中奖信息</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="shareResult">分享结果</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户信息和登出按钮 -->
+        <div class="user-info" id="userInfo" style="display: none;">
+            <div class="user-details">
+                <i class="fas fa-user"></i>
+                <span id="userName">用户</span>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                登出
+            </button>
+        </div>
+
+        <!-- 活动规则按钮 -->
+        <div class="rules-button" id="rulesButton">
+            <i class="fas fa-question-circle"></i>
+        </div>
+
+        <!-- 活动规则弹窗 -->
+        <div class="rules-modal" id="rulesModal">
+            <div class="rules-modal-content">
+                <div class="rules-modal-header">
+                    <h3><i class="fas fa-info-circle"></i> 活动规则</h3>
+                    <button class="rules-close-btn" id="rulesCloseBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="rules-modal-body" id="rulesModalBody">
+                    <!-- 规则内容将由JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽奖记录 -->
+        <!-- <div class="history">
+            <h3><i class="fas fa-history"></i> 抽奖记录</h3>
+            <div class="history-list" id="historyList">
+                <div class="history-item empty">暂无抽奖记录</div>
+            </div>
+        </div> -->
+
+        <!-- 音效控制 -->
+        <div class="audio-controls">
+            <button class="audio-btn" id="audioToggle">
+                <i class="fas fa-volume-up"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="src/js/config.js"></script>
+    <script src="src/js/lottery-engine.js"></script>
+    <script src="src/js/script.js"></script>
+</body>
+
+</html>
