@@ -2,6 +2,18 @@
 
 一个功能完整、高度可定制的抽奖系统，专为企业营销活动、品牌推广、用户互动而设计。支持多种抽奖方式、主题切换和用户登录管理，助力您的营销活动取得成功！
 
+电脑屏幕
+
+<p align="center">
+  <img src="./src/assets/previews/computerWidescreen.gif" alt="Demo" width="500">
+</p>
+
+手机屏幕
+
+<p align="center">
+  <img src="./src/assets/previews/mobilePhoneScreen.gif" alt="Demo" width="500">
+</p>
+
 ## 📁 项目结构
 
 ```
