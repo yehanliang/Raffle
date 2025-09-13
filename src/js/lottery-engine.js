@@ -131,10 +131,13 @@ class LotteryEngine {
     const gridSize = Math.ceil(Math.sqrt(prizes.length));
     const totalItems = gridSize * gridSize;
 
-    // 创建网格
+    // 创建网格 - 自适应尺寸
     gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-    gridContainer.style.width = `${gridSize * 120 + (gridSize - 1) * 10}px`;
-    gridContainer.style.height = `${gridSize * 120 + (gridSize - 1) * 10}px`;
+    gridContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+    gridContainer.style.width = "100%";
+    gridContainer.style.maxWidth = "500px";
+    gridContainer.style.height = "500px";
+    gridContainer.style.aspectRatio = "1";
 
     for (let i = 0; i < totalItems; i++) {
       const item = document.createElement("div");

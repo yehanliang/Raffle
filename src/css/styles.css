@@ -293,11 +293,38 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    width: 450px;
-    height: 450px;
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
     margin: 0 auto;
     justify-items: center;
     align-items: center;
+    aspect-ratio: 1;
+}
+
+/* 响应式网格 */
+@media (max-width: 768px) {
+    .grid-container {
+        max-width: 400px;
+        height: 400px;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        max-width: 350px;
+        height: 350px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .grid-container {
+        max-width: 300px;
+        height: 300px;
+        gap: 6px;
+    }
 }
 
 .grid-item {
@@ -313,8 +340,9 @@ body {
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    width: 120px;
-    height: 120px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
     margin: 0 auto;
 }
 
@@ -325,6 +353,25 @@ body {
 
 .grid-item.selected {
     animation: gridPulse 0.5s ease-in-out;
+}
+
+/* 响应式网格项 */
+@media (max-width: 768px) {
+    .grid-item {
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-item {
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .grid-item {
+        border-radius: 8px;
+    }
 }
 
 @keyframes gridPulse {
